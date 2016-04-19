@@ -77,10 +77,10 @@ public class MeConfigOAuth2Server extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //super.configure(clients); 
         clients.inMemory()
-                    .withClient("ecokrypt")
+                    .withClient("melayer")
                     .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                     .scopes("read", "write", "trust")
-                    .autoApprove("ecocrypt")
+                    .autoApprove("melayer")
                     .authorities("USER", "ADMIN")
                     .accessTokenValiditySeconds(60000).secret("12345")
                 .and()

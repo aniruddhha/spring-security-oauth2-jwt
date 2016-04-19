@@ -83,7 +83,7 @@ public class MeController {
         
         ResponseEntity<Map<String,Object>> entity = null;
         
-        factoryMultitenanecy.setDataBase("ecokrypt");
+        factoryMultitenanecy.setDataBase("melayer");
         repoArticle.save(article);
         
         Map<String,Object> mapEntity = new HashMap<>();

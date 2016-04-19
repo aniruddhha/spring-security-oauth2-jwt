@@ -33,7 +33,7 @@ public class MeUserServiceUserDetail implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         System.out.println("User name is "+username);
-        mongoDbFactory.setDataBase("ecokrypt");
+        mongoDbFactory.setDataBase("melayer");
         
         MeUser user = userRepository.findByUserName(username);
         System.out.println("----> User Name - " + user.getUserName());
