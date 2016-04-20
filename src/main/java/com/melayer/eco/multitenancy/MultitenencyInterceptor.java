@@ -67,7 +67,7 @@ public class MultitenencyInterceptor extends HandlerInterceptorAdapter {
             mongoDbFactory.setDataBase("university");
         }
         else {
-            mongoDbFactory.setDataBase("ecokrypt");
+            mongoDbFactory.setDataBase("melayer");
         }
     }
 
