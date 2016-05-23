@@ -25,23 +25,31 @@ public class MeUserServiceUserDetail implements UserDetailsService {
 
     @Autowired
     private MeUserRepo userRepository;
-    
-     @Autowired
-    private MeMongoFactoryMultiTenenacy mongoDbFactory;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        System.out.println("User name is "+username);
-        mongoDbFactory.setDataBase("melayer");
+        System.out.println("Web security User Name is - "+username);
         
-        MeUser user = userRepository.findByUserName(username);
-        System.out.println("----> User Name - " + user.getUserName());
-        System.out.println("----> Password - " + user.getPassword());
+        MeUser user = null;
+        
+        if (username != null && username.length() > 0) {
+            
+            user = userRepository.findByUserName(username);
+            System.out.println("----> User Name - " + user.getUserName());
+            System.out.println("----> Password - " + user.getPassword());
 
-        if (user == null) {
+            if (user == null) {
 
-            throw new UsernameNotFoundException(username);
+                throw new UsernameNotFoundException(username);
+            }
+        }
+        else{
+            System.out.println("In Else Block user service details");
+            user = new MeUser();
+            user.setUserName("anonymous");
+            user.setPassword("anonymous");
+            user.addRole("ROLE_ANONYMOUS");
         }
 
         return new MeUserRepositoryUserDetails(user);
@@ -51,7 +59,7 @@ public class MeUserServiceUserDetail implements UserDetailsService {
 
         public MeUserRepositoryUserDetails(MeUser user) {
             super(user);
-            
+
         }
 
         @Override

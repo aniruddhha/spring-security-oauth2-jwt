@@ -9,6 +9,7 @@ import com.melayer.eco.db.MeMongoFactoryMultiTenenacy;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -18,6 +19,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * @author aniruddha
  */
 public class MultitenencyInterceptor extends HandlerInterceptorAdapter {
+
+    @Autowired
+    private Environment environment;
 
     @Autowired
     private DefaultTokenServices defaultTokenService;
@@ -33,7 +37,8 @@ public class MultitenencyInterceptor extends HandlerInterceptorAdapter {
 
         printRequestData(request);
 
-        useDatabaseUsingRequestUrl(request);
+        //useDatabaseUsingRequestUrl(request);
+        useDatabaseUsingTenantHeader(request);
 
         return returnStatus;
     }
@@ -61,14 +66,26 @@ public class MultitenencyInterceptor extends HandlerInterceptorAdapter {
         System.out.println("Request URI -> " + request.getRequestURI());
         System.out.println("Request URL -> " + request.getRequestURL().toString());
         System.out.println("Server Name -> " + request.getServerName());
-        
-        if(request.getRemoteAddr().equals("192.168.61.23")){
-            
+
+        if (!request.getRemoteAddr().equals("192.168.61.23")) {
+
+            System.out.println("Using University Db");
             mongoDbFactory.setDataBase("university");
-        }
-        else {
+        } else {
+            System.out.println("Using ecokrypt Db");
             mongoDbFactory.setDataBase("ecokrypt");
         }
+    }
+
+    private void useDatabaseUsingTenantHeader(HttpServletRequest request) {
+
+        String tenant = request.getHeader("tenant");
+        String database = environment.getProperty(tenant);
+
+        System.out.println("Tenant ->" + tenant);
+        System.out.println("Database ->" + database);
+        mongoDbFactory.setDataBase(database != null ? database : "ecokrypt");
+
     }
 
     private void printRequestData(HttpServletRequest request) {

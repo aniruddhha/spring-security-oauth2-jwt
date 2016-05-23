@@ -44,7 +44,7 @@ public class MeConfigApp {
 
         UndertowEmbeddedServletContainerFactory factory = new UndertowEmbeddedServletContainerFactory();
         factory.setPort(8282);
-        factory.setContextPath("/melayer");
+        factory.setContextPath("/ecokrypt");
         return factory;
     }
     

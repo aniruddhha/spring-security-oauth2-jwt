@@ -29,13 +29,16 @@ public class MeConfigResourceServer extends ResourceServerConfigurerAdapter {
 
         http
                 .csrf().disable()
-                .exceptionHandling()
+                .anonymous()
+                .and()
+                    .exceptionHandling()
                 .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeRequests()
                         .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .antMatchers("/oauth/**").permitAll()
+                        .antMatchers("/check/").hasAnyRole("ADMIN")
                     .anyRequest().authenticated();
     }
 }

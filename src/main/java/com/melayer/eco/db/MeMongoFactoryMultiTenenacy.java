@@ -28,7 +28,7 @@ public class MeMongoFactoryMultiTenenacy extends SimpleMongoDbFactory{
     public DB getDb() throws DataAccessException {
         
         
-        String dataBaseName = (threadLocalDbNames.get()!=null && threadLocalDbNames.get().length() > 0) ? threadLocalDbNames.get() : "melayer";
+        String dataBaseName = (threadLocalDbNames.get()!=null && threadLocalDbNames.get().length() > 0) ? threadLocalDbNames.get() : "ecokrypt";
         setDataBase(dataBaseName);
         System.out.println("Mongofactory Database Name - "+threadLocalDbNames.get());
         return super.getDb(dataBaseName); 

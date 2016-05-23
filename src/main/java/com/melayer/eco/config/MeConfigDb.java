@@ -24,7 +24,7 @@ public class MeConfigDb {
     @Bean
     public MeMongoFactoryMultiTenenacy multitenenatMongoFactoty() throws Exception{
 
-        MeMongoFactoryMultiTenenacy multitenenatMongoFactoty = new MeMongoFactoryMultiTenenacy(new MongoClient(), "melayer");
+        MeMongoFactoryMultiTenenacy multitenenatMongoFactoty = new MeMongoFactoryMultiTenenacy(new MongoClient(), "ecokrypt");
 
         return multitenenatMongoFactoty;
     }
