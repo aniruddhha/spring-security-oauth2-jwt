@@ -37,7 +37,6 @@ public class MultitenencyInterceptor extends HandlerInterceptorAdapter {
 
         printRequestData(request);
 
-        //useDatabaseUsingRequestUrl(request);
         useDatabaseUsingTenantHeader(request);
 
         return returnStatus;
